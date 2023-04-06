@@ -12,19 +12,23 @@ const tokens = (number) => {
 };
 
 describe('Token', () => {
-    let token
+    let token, accounts, deployer;
     //Any tests go in here, this uses matcha chai and waffle the describe function is from waffle
 
     beforeEach(async () => {
         //fetch token from chain
         const Token = await ethers.getContractFactory('Token');
         token = await Token.deploy('a rug pull', 'DAPP', '1000000')
+
+        accounts = await ethers.getSigners();
+        deployer = accounts[0]
     });
 
     describe('Deployment', () => {
         const name = 'a rug pull'
         const symbol = 'DAPP'
         const totalSupply = tokens(1000000)
+        
 
         it('Has the correct name', async () => {
             //Read Token Name
@@ -44,6 +48,10 @@ describe('Token', () => {
     
         it('has the correct total supply', async () => {
             expect(await token.totalSupply()).to.equal(totalSupply)
+        });
+
+        it('assigns total supply to deployer', async () => {
+            expect(await token.balanceOf(deployer.address)).to.equal(totalSupply)
         });
     })
 });
