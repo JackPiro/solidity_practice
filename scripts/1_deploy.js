@@ -5,23 +5,6 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 
-// const hre = require("hardhat");
-
-// const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-// const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-// const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
-
-// const lockedAmount = hre.ethers.utils.parseEther("1");
-
-// const Lock = await hre.ethers.getContractFactory("Lock");
-// const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-// await lock.deployed();
-
-// console.log(
-//   `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-// );
-
 async function main() {
   //First step is to fetch the contracts that we want to deploy.
   const Token = await ethers.getContractFactory("Token")
@@ -31,7 +14,7 @@ async function main() {
   //now we create a way to read the info that we just deployed
   const token = Token.deploy()
   //now we print out that info use back ticks for variables in strings for js
-  console.log(`Token has been deployed to ${token.address()}`)
+  console.log(`Token has been deployed to ${token.address}`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
